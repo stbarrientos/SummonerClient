@@ -1,0 +1,9 @@
+# Ignore object and binary files
+obj/*
+bin/*
+
+# Ignore User Config Settings
+conf/*
+
+# Ignore User Tmp Files
+tmp/*
