@@ -1,9 +1,23 @@
 #include "../include/summoner_user.h"
 
-Summoner::User::User(): User((char*) "default", (char*) "default") {}
+Summoner::User::User() {}
 
-Summoner::User::User(char* username, char* password): Username(username) {}
+Summoner::User::User(std::string u): Username(u) {} 
+
+Summoner::User::User(std::string username, std::string& password): Username(username)
+{
+  Authenticate(password);
+}
 
 Summoner::User::~User() {}
 
-void Summoner::User::SetPassword(std::string p) {}
+bool Summoner::User::Authenticate(std::string& password)
+{
+  if (this->Username == "default" && password == "default"){
+    this->Authenticated = true;
+    return true;
+  } else {
+    this->Authenticated = false;
+    return false;
+  }
+}

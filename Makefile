@@ -10,18 +10,18 @@ INCL_DIR = include
 OBJ_DIR = obj
 
 EXECUTABLE = $(BIN_DIR)/summon
-OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/connector.o $(OBJ_DIR)/summoner_settings.o $(OBJ_DIR)/summoner_user.o $(OBJ_DIR)/summoner_workstation.o
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/connector.o $(OBJ_DIR)/summoner_cli.o $(OBJ_DIR)/summoner_settings.o $(OBJ_DIR)/summoner_user.o $(OBJ_DIR)/summoner_workstation.o $(OBJ_DIR)/summoner_menu_option.o
 
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(EXECUTABLE) $(LIBS)
 
-$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp $(INCL_DIR)/connector.h $(INCL_DIR)/summoner.h
+$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp $(INCL_DIR)/connector.h $(INCL_DIR)/summoner_cli.h
 	$(CC) $(CFLAGS) $(SRC_DIR)/main.cpp -o $(OBJ_DIR)/main.o
 
-$(OBJD_DIR)/summoner.o: $(SRC_DIR)/summoner.cpp $(INCL_DIR)/summoner.h $(INCL_DIR)/summoner_settings.h $(INCL_DIR)/summoner_user.h $(INCL_DIR)/summoner_workstation.h
-	$(CC) $(CFLAGS) $(SRC_DIR)/summoner.cpp -o $(OBJ_DIR)/summoner.o
+$(OBJ_DIR)/summoner_cli.o: $(SRC_DIR)/summoner_cli.cpp $(INCL_DIR)/summoner_cli.h $(INCL_DIR)/summoner_settings.h $(INCL_DIR)/summoner_user.h $(INCL_DIR)/summoner_workstation.h
+	$(CC) $(CFLAGS) $(SRC_DIR)/summoner_cli.cpp -o $(OBJ_DIR)/summoner_cli.o
 
 $(OBJ_DIR)/connector.o: $(SRC_DIR)/connector.cpp $(INCL_DIR)/connector.h $(INCL_DIR)/json.hpp
 	$(CC) $(CFLAGS) $(SRC_DIR)/connector.cpp -o $(OBJ_DIR)/connector.o
@@ -34,3 +34,7 @@ $(OBJ_DIR)/summoner_user.o: $(SRC_DIR)/summoner_user.cpp $(INCL_DIR)/summoner_us
 
 $(OBJ_DIR)/summoner_workstation.o: $(SRC_DIR)/summoner_workstation.cpp $(INCL_DIR)/summoner_workstation.h
 	$(CC) $(CFLAGS) $(SRC_DIR)/summoner_workstation.cpp -o $(OBJ_DIR)/summoner_workstation.o
+
+$(OBJ_DIR)/summoner_menu_option.o: $(SRC_DIR)/summoner_menu_option.cpp $(INCL_DIR)/summoner_menu_option.h
+	$(CC) $(CFLAGS) $(SRC_DIR)/summoner_menu_option.cpp -o $(OBJ_DIR)/summoner_menu_option.o
+	

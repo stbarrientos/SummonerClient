@@ -10,21 +10,20 @@ class User {
 public:
 
 	User();
-	User(char*, char*);
+	User(std::string);
+	User(std::string, std::string&);
 	~User();
 
 	std::string GetUsername() const { return Username; }
-	std::string GetPassword() const { return EncryptedPassword; }
-
+	bool IsAuthenticated() { return Authenticated; }
 	void SetUsername(std::string u) { Username = u; }
-	void SetPassword(std::string p);
+
+	bool Authenticate(std::string&);
 
 private:
 
-	void SetPasswordFromUnencryptedString();
-
+	bool Authenticated;
 	std::string Username;
-	std::string EncryptedPassword;
 
 
 };
