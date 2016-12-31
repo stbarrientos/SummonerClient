@@ -14,12 +14,12 @@ public:
 	Connector();
 	~Connector();
 
-	void GetJsonFromServer(json&, const char*, char*);
+	json GetJsonFromServer(const char*, char*);
+  void GetFromServer(std::string&, const char*, char*);
 	void PostToServer(CURLcode*,char*, char*, char*);
 
 private:
 	
-	void GetFromServer(std::string&, const char*, char*);
   static size_t GetRequestCallback(void *contents, size_t size, size_t nmemb, void *userp);
 
 };
