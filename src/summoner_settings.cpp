@@ -21,6 +21,11 @@ void Summoner::Settings::SaveSettings(Summoner::User& user)
 	file.close();
 }
 
+void Summoner::Settings::SaveSettings(Summoner::User* user)
+{
+	Summoner::Settings::SaveSettings(*user);
+}
+
 void Summoner::Settings::LoadSettings(Summoner::User& user)
 {
 	using namespace std;
@@ -46,6 +51,11 @@ void Summoner::Settings::LoadSettings(Summoner::User& user)
 	string password;
 	ReadStringFromBuffer(username, buffer, header.UsernameLength);
 	user.SetUsername(username);
+}
+
+void Summoner::Settings::LoadSettings(Summoner::User* user) 
+{
+	Summoner::Settings::LoadSettings(*user);
 }
 
 void Summoner::Settings::ReadStringFromBuffer(std::string& out_string, char* buffer, int string_target_length, int offset)

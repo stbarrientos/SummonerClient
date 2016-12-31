@@ -1,6 +1,7 @@
 #ifndef _SUMMONER_MENU_OPTION_H_
 #define _SUMMONER_MENU_OPTION_H_
 
+#include <iostream>
 #include <string>
 
 namespace Summoner {

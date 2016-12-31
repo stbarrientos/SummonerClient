@@ -42,9 +42,9 @@ public:
 	void UpdateWorkstationSettings();
 
 	// CLI Functions
-	void InterpretArgs(int, const char**);
 	void BeginLogin();
 	bool Logout();
+	bool UserQuit();
 	bool DisplayMainMenu();
 	bool DisplayAccountMenu();
 	bool DisplaySettingsMenu();
@@ -57,17 +57,25 @@ private:
 	User* CurrentUser;
 
 	// Menu
-	static const int MainMenuOptionsLength = 3;
-	static const int AccountMenuOptionsLength = 2;
-	static const int SettingsMenuOptionsLength = 2;
-	SCLI_MENU_OPTION* MainMenuOptions[MainMenuOptionsLength];
-	SCLI_MENU_OPTION* AccountMenuOptions[AccountMenuOptionsLength];
-	SCLI_MENU_OPTION* SettingsMenuOptions[SettingsMenuOptionsLength];
+	static const int MainMenuOptionsLength = 5;
+	static const int AccountMenuOptionsLength = 3;
+	static const int SettingsMenuOptionsLength = 3;
+	SCLI_MENU_OPTION* MainMenuOptions[MainMenuOptionsLength] { nullptr };
+	SCLI_MENU_OPTION* AccountMenuOptions[AccountMenuOptionsLength]  { nullptr };
+	SCLI_MENU_OPTION* SettingsMenuOptions[SettingsMenuOptionsLength]  { nullptr };
 	void InitMainMenuOptions();
 	void InitAccountMenuOptions();
 	void InitSettingsMenuOptions();
 	void DisplayMenu(SCLI_MENU_OPTION**, int);
 	void DeleteMenu(SCLI_MENU_OPTION**, int);
+	bool Quit = false;
+
+	// CLI
+	void InterpretArgs(int, const char**);
+
+	// Settings Functions
+	bool SaveUserSettings();
+	bool LoadUserSettings();
 
 };
 }

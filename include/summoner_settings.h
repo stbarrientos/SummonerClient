@@ -16,10 +16,12 @@ namespace Settings {
 	};
 
 	void SaveSettings(Summoner::User&);
+	void SaveSettings(Summoner::User*);
 	void LoadSettings(Summoner::User&);
+	void LoadSettings(Summoner::User*);
 	void ReadStringFromBuffer(std::string&, char*, int, int offset = 0);
 
-	static const char FilePath[] = "conf/settings.bin";
+	static const char FilePath[] = "./settings/settings.bin";
 
 }
 }

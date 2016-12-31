@@ -2,8 +2,8 @@
 obj/*
 bin/*
 
-# Ignore User Config Settings
-conf/*
+# Ignore User Settings
+settings/*
 
 # Ignore User Tmp Files
 tmp/*

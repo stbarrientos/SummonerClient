@@ -53,22 +53,25 @@ void Summoner::CLI::BeginLogin()
 void Summoner::CLI::InitMainMenuOptions()
 {
   MainMenuOptions[0] = new SCLI_MENU_OPTION(1, "Account", &Summoner::CLI::DisplayAccountMenu, this);
-  MainMenuOptions[1] = new SCLI_MENU_OPTION(2, "Settings");
+  MainMenuOptions[1] = new SCLI_MENU_OPTION(2, "Settings", &Summoner::CLI::DisplaySettingsMenu, this);
   MainMenuOptions[2] = new SCLI_MENU_OPTION(3, "Summon Help");
-  MainMenuOptions[2] = new SCLI_MENU_OPTION(3, "List Summon Requests");
+  MainMenuOptions[3] = new SCLI_MENU_OPTION(4, "List Summon Requests");
+  MainMenuOptions[4] = new SCLI_MENU_OPTION(5, "Quit", &Summoner::CLI::UserQuit, this);
 }
 
 void Summoner::CLI::InitAccountMenuOptions()
 {
   AccountMenuOptions[0] = new SCLI_MENU_OPTION(1, "Log Out");
   AccountMenuOptions[1] = new SCLI_MENU_OPTION(2, "Change Password");
-  AccountMenuOptions[1] = new SCLI_MENU_OPTION(2, "Back To Main Menu", &Summoner::CLI::DisplayMainMenu, this);
+  AccountMenuOptions[2] = new SCLI_MENU_OPTION(3, "Back To Main Menu", &Summoner::CLI::DisplayMainMenu, this);
 
 }
 
 void Summoner::CLI::InitSettingsMenuOptions()
 {
-
+  SettingsMenuOptions[0] = new SCLI_MENU_OPTION(1, "Save Current Settings", &Summoner::CLI::SaveUserSettings, this);
+  SettingsMenuOptions[1] = new SCLI_MENU_OPTION(2, "Load Last Saved Settings");
+  SettingsMenuOptions[2] = new SCLI_MENU_OPTION(3, "Back To Main Menu", &Summoner::CLI::DisplayMainMenu, this);
 }
 
 // Menu Display Functions
@@ -99,7 +102,9 @@ void Summoner::CLI::DisplayMenu(SCLI_MENU_OPTION** options, int options_count)
 bool Summoner::CLI::DisplayMainMenu()
 {
   InitMainMenuOptions();
-  DisplayMenu(MainMenuOptions, MainMenuOptionsLength);
+  do {
+    DisplayMenu(MainMenuOptions, MainMenuOptionsLength);
+  } while (!Quit);
   return true;
 }
 
@@ -110,6 +115,13 @@ bool Summoner::CLI::DisplayAccountMenu()
   return true;
 }
 
+bool Summoner::CLI::DisplaySettingsMenu()
+{
+  InitSettingsMenuOptions();
+  DisplayMenu(SettingsMenuOptions, SettingsMenuOptionsLength);
+  return true;
+}
+
 // Menu Memory Cleanup
 void Summoner::CLI::DeleteMenu(SCLI_MENU_OPTION** options, int options_count)
 {
@@ -117,5 +129,28 @@ void Summoner::CLI::DeleteMenu(SCLI_MENU_OPTION** options, int options_count)
     if (options[i]) delete options[i];
   }
 }
+
+// Settings Functions
+bool Summoner::CLI::SaveUserSettings()
+{
+  if (CurrentUser)
+    Summoner::Settings::SaveSettings(CurrentUser);
+  return true;
+}
+
+bool Summoner::CLI::LoadUserSettings()
+{
+  if (CurrentUser)
+    Summoner::Settings::LoadSettings(CurrentUser);
+  return true;
+}
+
+bool Summoner::CLI::UserQuit()
+{
+  if (!Quit)
+    Quit = true;
+  return Quit;
+}
+
 
 
