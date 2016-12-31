@@ -52,17 +52,17 @@ void Summoner::CLI::BeginLogin()
 // Menu Init Functions
 void Summoner::CLI::InitMainMenuOptions()
 {
-  MainMenuOptions[0] = new MenuOption(1, "Account", &Summoner::CLI::DisplayAccountMenu, this);
-  MainMenuOptions[1] = new MenuOption(2, "Settings");
-  MainMenuOptions[2] = new MenuOption(3, "Summon Help");
-  MainMenuOptions[2] = new MenuOption(3, "List Summon Requests");
+  MainMenuOptions[0] = new SCLI_MENU_OPTION(1, "Account", &Summoner::CLI::DisplayAccountMenu, this);
+  MainMenuOptions[1] = new SCLI_MENU_OPTION(2, "Settings");
+  MainMenuOptions[2] = new SCLI_MENU_OPTION(3, "Summon Help");
+  MainMenuOptions[2] = new SCLI_MENU_OPTION(3, "List Summon Requests");
 }
 
 void Summoner::CLI::InitAccountMenuOptions()
 {
-  AccountMenuOptions[0] = new MenuOption(1, "Log Out");
-  AccountMenuOptions[1] = new MenuOption(2, "Change Password");
-  AccountMenuOptions[1] = new MenuOption(2, "Back To Main Menu", &Summoner::CLI::DisplayMainMenu, this);
+  AccountMenuOptions[0] = new SCLI_MENU_OPTION(1, "Log Out");
+  AccountMenuOptions[1] = new SCLI_MENU_OPTION(2, "Change Password");
+  AccountMenuOptions[1] = new SCLI_MENU_OPTION(2, "Back To Main Menu", &Summoner::CLI::DisplayMainMenu, this);
 
 }
 
@@ -72,12 +72,12 @@ void Summoner::CLI::InitSettingsMenuOptions()
 }
 
 // Menu Display Functions
-void Summoner::CLI::DisplayMenu(Summoner::MenuOption** options, int options_count)
+void Summoner::CLI::DisplayMenu(SCLI_MENU_OPTION** options, int options_count)
 {
   using namespace std;
   string input;
   bool valid_input = false;
-  Summoner::MenuOption* selected_option;
+  SCLI_MENU_OPTION* selected_option;
   do {
     for (int i = 0; i < options_count; i++){
       options[i]->Print();
@@ -111,7 +111,7 @@ bool Summoner::CLI::DisplayAccountMenu()
 }
 
 // Menu Memory Cleanup
-void Summoner::CLI::DeleteMenu(MenuOption** options, int options_count)
+void Summoner::CLI::DeleteMenu(SCLI_MENU_OPTION** options, int options_count)
 {
   for (int i = 0; i < options_count; i++){
     if (options[i]) delete options[i];

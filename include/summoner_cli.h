@@ -1,6 +1,8 @@
 #ifndef _SUMMONER_SUMMONER_H_
 #define _SUMMONER_SUMMONER_H_
 
+#define SCLI_MENU_OPTION Summoner::MenuOption<bool (Summoner::CLI::*)(), Summoner::CLI*>
+
 #include <string>
 #include "summoner_settings.h"
 #include "summoner_user.h"
@@ -58,14 +60,14 @@ private:
 	static const int MainMenuOptionsLength = 3;
 	static const int AccountMenuOptionsLength = 2;
 	static const int SettingsMenuOptionsLength = 2;
-	MenuOption* MainMenuOptions[MainMenuOptionsLength];
-	MenuOption* AccountMenuOptions[AccountMenuOptionsLength];
-	MenuOption* SettingsMenuOptions[SettingsMenuOptionsLength];
+	SCLI_MENU_OPTION* MainMenuOptions[MainMenuOptionsLength];
+	SCLI_MENU_OPTION* AccountMenuOptions[AccountMenuOptionsLength];
+	SCLI_MENU_OPTION* SettingsMenuOptions[SettingsMenuOptionsLength];
 	void InitMainMenuOptions();
 	void InitAccountMenuOptions();
 	void InitSettingsMenuOptions();
-	void DisplayMenu(MenuOption**, int);
-	void DeleteMenu(MenuOption**, int);
+	void DisplayMenu(SCLI_MENU_OPTION**, int);
+	void DeleteMenu(SCLI_MENU_OPTION**, int);
 
 };
 }

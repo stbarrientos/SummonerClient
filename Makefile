@@ -10,7 +10,7 @@ INCL_DIR = include
 OBJ_DIR = obj
 
 EXECUTABLE = $(BIN_DIR)/summon
-OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/connector.o $(OBJ_DIR)/summoner_cli.o $(OBJ_DIR)/summoner_settings.o $(OBJ_DIR)/summoner_user.o $(OBJ_DIR)/summoner_workstation.o $(OBJ_DIR)/summoner_menu_option.o
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/connector.o $(OBJ_DIR)/summoner_cli.o $(OBJ_DIR)/summoner_settings.o $(OBJ_DIR)/summoner_user.o $(OBJ_DIR)/summoner_workstation.o
 
 all: $(EXECUTABLE)
 
@@ -35,6 +35,3 @@ $(OBJ_DIR)/summoner_user.o: $(SRC_DIR)/summoner_user.cpp $(INCL_DIR)/summoner_us
 $(OBJ_DIR)/summoner_workstation.o: $(SRC_DIR)/summoner_workstation.cpp $(INCL_DIR)/summoner_workstation.h
 	$(CC) $(CFLAGS) $(SRC_DIR)/summoner_workstation.cpp -o $(OBJ_DIR)/summoner_workstation.o
 
-$(OBJ_DIR)/summoner_menu_option.o: $(SRC_DIR)/summoner_menu_option.cpp $(INCL_DIR)/summoner_menu_option.h
-	$(CC) $(CFLAGS) $(SRC_DIR)/summoner_menu_option.cpp -o $(OBJ_DIR)/summoner_menu_option.o
-	
