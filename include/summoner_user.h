@@ -16,6 +16,7 @@ public:
 
 	std::string GetUsername() const { return Username; }
 	bool IsAuthenticated() { return Authenticated; }
+	void SetAuthentication(bool a) { Authenticated = a; }
 	void SetUsername(std::string u) { Username = u; }
 
 	bool Authenticate(std::string&);

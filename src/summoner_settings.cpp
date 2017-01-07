@@ -1,4 +1,3 @@
-#include <iostream>
 #include <fstream>
 #include <cstdint>
 #include <cstring>
@@ -6,27 +5,29 @@
 #include "../include/summoner_settings.h"
 #include "../include/summoner_user.h"
 
-void Summoner::Settings::SaveSettings(Summoner::User& user)
+bool Summoner::Settings::SaveSettings(Summoner::User& user)
 {
 	using namespace std;
 	ofstream file;
 	SettingsFileHeader header;
 	char garbage[18] = "abcdefghijklmno";
 	header.UsernameLength = user.GetUsername().size();
+	header.AuthenticationState = user.IsAuthenticated() ? 1 : 0;
 	strncpy(header.Garbage, garbage, sizeof(header.Garbage));
 	file.open(Summoner::Settings::FilePath, ios::binary);
-	if (!file) return;
+	if (!file) return false;
 	file.write((char*) &header, sizeof(header));
 	file.write(user.GetUsername().c_str(), header.UsernameLength);
 	file.close();
+	return true;
 }
 
-void Summoner::Settings::SaveSettings(Summoner::User* user)
+bool Summoner::Settings::SaveSettings(Summoner::User* user)
 {
-	Summoner::Settings::SaveSettings(*user);
+	return Summoner::Settings::SaveSettings(*user);
 }
 
-void Summoner::Settings::LoadSettings(Summoner::User& user)
+bool Summoner::Settings::LoadSettings(Summoner::User& user)
 {
 	using namespace std;
 	ifstream file;
@@ -35,7 +36,7 @@ void Summoner::Settings::LoadSettings(Summoner::User& user)
 	SettingsFileHeader header;
 
 	file.open(Summoner::Settings::FilePath, ios::binary);
-	if (!file) return;
+	if (!file) return false;
 	file.seekg(0, ios::end);
 	size = file.tellg();
 	file.seekg(0, ios::beg);
@@ -48,14 +49,15 @@ void Summoner::Settings::LoadSettings(Summoner::User& user)
 	file.close();
 
 	string username;
-	string password;
 	ReadStringFromBuffer(username, buffer, header.UsernameLength);
 	user.SetUsername(username);
+	user.SetAuthentication((bool) header.AuthenticationState);
+	return true;
 }
 
-void Summoner::Settings::LoadSettings(Summoner::User* user) 
+bool Summoner::Settings::LoadSettings(Summoner::User* user) 
 {
-	Summoner::Settings::LoadSettings(*user);
+	return Summoner::Settings::LoadSettings(*user);
 }
 
 void Summoner::Settings::ReadStringFromBuffer(std::string& out_string, char* buffer, int string_target_length, int offset)

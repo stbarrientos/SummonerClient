@@ -77,6 +77,9 @@ private:
 	bool SaveUserSettings();
 	bool LoadUserSettings();
 
+	// Authentication
+	enum LoginMode { FullLogin, PasswordOnly };
+	void DisplayUserLoginMenu(User*, LoginMode);
 };
 }
 

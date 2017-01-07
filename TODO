@@ -1,0 +1,8 @@
+This branch is dedicated to:
+
+1) Adding data to track a user's last authentication
+2) If a user has authenticated within a time limit, do not prompt them to login again
+3) If a user has not authenticated within a time limit, ask for only a password and assume the username
+4) Allow a user to deauthenticate, track authentication state
+5) If no settings file is found, require both username and password
+6) Allow user to delete settings file

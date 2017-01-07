@@ -32,21 +32,33 @@ void Summoner::CLI::InterpretArgs(int argc, const char* argv[])
 void Summoner::CLI::BeginLogin()
 {
   using namespace std;
+  User* user = new User();
+  if (Settings::LoadSettings(user)){
+    DisplayUserLoginMenu(user, LoginMode::PasswordOnly);
+  } else {
+    DisplayUserLoginMenu(user, LoginMode::FullLogin);
+  }
+  CurrentUser = user;
+  cout << "Welcome " << CurrentUser->GetUsername() << endl << endl;
+  DisplayMainMenu();
+}
+
+void Summoner::CLI::DisplayUserLoginMenu(User* user, LoginMode mode)
+{
+  using namespace std;
   string username;
   string password;
-  User* user = new User();
   do {
-    cout << "Username: " << flush;
-    cin >> username;
-    user->SetUsername(username);
+    if (mode == LoginMode::FullLogin){
+      cout << "Username: " << flush;
+      cin >> username;
+      user->SetUsername(username);
+    }
     cout << "Password: " << flush;
     cin >> password;
     user->Authenticate(password);
     if (!user->IsAuthenticated()) cout << "Invalid Username Or Password" << endl;
   } while (!user->IsAuthenticated());
-  CurrentUser = user;
-  cout << "Welcome " << CurrentUser->GetUsername() << endl << endl;
-  DisplayMainMenu();
 }
 
 // Menu Init Functions
@@ -134,15 +146,15 @@ void Summoner::CLI::DeleteMenu(SCLI_MENU_OPTION** options, int options_count)
 bool Summoner::CLI::SaveUserSettings()
 {
   if (CurrentUser)
-    Summoner::Settings::SaveSettings(CurrentUser);
-  return true;
+    return Summoner::Settings::SaveSettings(CurrentUser);
+  return false;
 }
 
 bool Summoner::CLI::LoadUserSettings()
 {
   if (CurrentUser)
-    Summoner::Settings::LoadSettings(CurrentUser);
-  return true;
+    return Summoner::Settings::LoadSettings(CurrentUser);
+  return false;
 }
 
 bool Summoner::CLI::UserQuit()
